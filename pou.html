@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pou 2</title>
+</head>
+<body>
+        <ul id="hud">
+            <li>Alimentação: <span id="hudAlimentacao"></span>/100<button onclick="alimentar()">Dar comida</button></li>
+            <li>Higiene: <span id="hudHigiene"></span>/100<button onclick="banho()">Dar banho</button></li>
+            <li>Estresse: <span id="hudEstresse"></span>/100<button onclick="musica()">Escutar música</button></li>
+        </ul>
+
+        <img src="pounormal.jpg" alt="Seu Pou" id="foto">
+    <script>
+        let pou = {
+            saciado: 75,
+            higiene: 75,
+            estresse: 15,
+        }
+        refresh()
+
+        let fuga = `
+        <div id="hud">
+        <h1>O bixo fugiu!!</h1>
+        <button onclick="recomecar()">Recomeçar</button>
+        </div>
+        `
+
+        function alimentar(){
+            pou.saciado += 15
+            pou.higiene -= 20
+            pou.estresse -= 5
+            refresh()
+        }
+
+        function banho(){
+            pou.estresse += 30
+            pou.higiene += 50
+            pou.saciado -= 5
+            refresh()
+        }
+
+        function musica(){
+            pou.estresse -= 50
+            pou.higiene -= 5
+            pou.saciado -= 5
+            refresh()
+        }
+
+        let pouFaminto = "poufome.jpg"
+        let pouSujo = "pousujo.jpg"
+        let pouBrabo = "pouBrabo.png"
+
+        function tempo(){
+            pou.saciado -= 5
+            pou.higiene -= 1
+            pou.estresse += 1
+            refresh()
+            if(pou.saciado<1 || pou.saciado>99){
+                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("foto").src = pouFaminto
+            }
+            else if(pou.higiene<1 || pou.higiene>99){
+                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("foto").src = pouSujo
+            }
+            else if(pou.estresse>99 || pou.estresse<1){
+                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("foto").src = pouBrabo
+            }
+        }
+        setInterval(tempo, 2000)
+
+        function refresh(){
+            document.getElementById('hudAlimentacao').innerHTML = pou.saciado
+            document.getElementById('hudHigiene').innerHTML = pou.higiene
+            document.getElementById('hudEstresse').innerHTML = pou.estresse
+        }
+        function recomecar(){
+            pou.saciado = 75
+            pou.higiene = 75
+            pou.estresse = 15
+            document.getElementById('hud').innerHTML = `
+            <ul id="hud">
+            <li>Alimentação: <span id="hudAlimentacao"></span>/100<button onclick="alimentar()">Dar comida</button></li>
+            <li>Higiene: <span id="hudHigiene"></span>/100<button onclick="banho()">Dar banho</button></li>
+            <li>Estresse: <span id="hudEstresse"></span>/100<button onclick="musica()">Escutar música</button></li>
+            </ul>
+            `
+            document.getElementById("foto").src = "pounormal.jpg"
+        }
+    </script>
+</body>
+</html>
