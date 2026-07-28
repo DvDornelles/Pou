@@ -12,7 +12,7 @@
             <li>Estresse: <span id="hudEstresse"></span>/100<button onclick="musica()">Escutar música</button></li>
             <li>Sono: <span id="hudSono"></span>/100<button onclick="dormir()">Dormir</button></li>
             <li>Tédio: <span id="hudTedio"></span>/100<button onclick="brincar()">Brincar</button></li>
-            <li>Saúde: <span id="hudTedio"></span>/100<button onclick="exercitar()">Exercitar</button></li>
+            <li>Saúde: <span id="hudSaude"></span>/100<button onclick="exercitar()">Exercitar</button></li>
         </ul>
 
         <img src="pounormal.jpg" alt="Seu Pou" id="foto">
@@ -83,11 +83,14 @@
             pou.saciado -=5
             pou.tedio -= 10
             pou.estresse -= 5
+            refresh()
         }
 
         let pouFaminto = "poufome.jpg"
         let pouSujo = "pousujo.jpg"
         let pouBrabo = "pouBrabo.png"
+        let pouCansado = "poucansado.jpg"
+        let pouEmMausBucados = "poupassandomal.jpg"
 
         function tempo(){
             pou.saciado -= 5
@@ -97,6 +100,7 @@
             pou.tedio += 5
             pou.saude -= 1
             refresh()
+
             if(pou.saciado<1 || pou.saciado>99){
                 document.getElementById("hud").innerHTML = fuga
                 document.getElementById("foto").src = pouFaminto
@@ -121,6 +125,27 @@
                 document.getElementById("hud").innerHTML = fuga
                 document.getElementById("foto").src = pouBrabo
             }
+
+
+            
+            else if(pou.higiene<35 && pou.saude<35 && pou.saciado<35 && pou.sono>65 && pou.estresse>65){
+                document.getElementById("foto").src = pouEmMausBucados
+            }
+
+            else if(pou.estresse<70 || pou.tedio > 70){
+                document.getElementById("foto").src = pouBrabo
+            }
+            else if(pou.higiene < 30){
+                document.getElementById("foto").src = pouSujo
+            }
+
+            else if(pou.sono > 70 || pou.saude < 30){
+                document.getElementById("foto").src = pouCansado
+            }
+
+            else if(pou.saciado < 30){
+                document.getElementById("foto").src = pouFaminto
+            }
         }
         setInterval(tempo, 2000)
 
@@ -130,6 +155,7 @@
             document.getElementById('hudEstresse').innerHTML = pou.estresse
             document.getElementById('hudSono').innerHTML = pou.sono
             document.getElementById('hudTedio').innerHTML = pou.tedio
+            document.getElementById('hudSaude').innerHTML = pou.saude
         }
         function recomecar(){
             pou.saciado = 75
@@ -144,7 +170,7 @@
             <li>Estresse: <span id="hudEstresse"></span>/100<button onclick="musica()">Escutar música</button></li>
             <li>Sono: <span id="hudSono"></span>/100<button onclick="dormir()">dormir</button></li>
             <li>Tédio: <span id="hudTedio"></span>/100<button onclick="brincar()">Brincar</button></li>
-            <li>Saúde: <span id="hudTedio"></span>/100<button onclick="exercitar()">Exercitar</button></li>
+            <li>Saúde: <span id="hudSaude"></span>/100<button onclick="exercitar()">Exercitar</button></li>
             </ul>
             `
             document.getElementById("foto").src = "pounormal.jpg"
