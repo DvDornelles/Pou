@@ -39,7 +39,7 @@
             pou.higiene -= 20
             pou.estresse -= 5
             pou.tedio -= 20
-            pou.saude += 5
+            pou.saude -= 5
             refresh()
         }
 
@@ -47,6 +47,7 @@
             pou.estresse += 30
             pou.higiene += 50
             pou.saciado -= 5
+            pou.saude -=1
             refresh()
         }
 
@@ -55,6 +56,7 @@
             pou.higiene -= 5
             pou.saciado -= 5
             pou.tedio -= 10
+            pou.saude -= 10
             refresh()
         }
 
@@ -83,6 +85,7 @@
             pou.saciado -=5
             pou.tedio -= 10
             pou.estresse -= 5
+            pou.sono += 20
             refresh()
         }
 
@@ -102,27 +105,39 @@
             refresh()
 
             if(pou.saciado<1 || pou.saciado>99){
-                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("hud").innerHTML = fuga + `
+                <p>Você não alimentou o Pou corretamente!</p>
+                `
                 document.getElementById("foto").src = pouFaminto
             }
             else if(pou.higiene<1 || pou.higiene>99){
-                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("hud").innerHTML = fuga + `
+                <p>Você não o ensinou a ter uma higiene controlada!</p>
+                `
                 document.getElementById("foto").src = pouSujo
             }
             else if(pou.estresse>99 || pou.estresse<1){
-                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("hud").innerHTML = fuga + `
+                <p>Pou não conteve suas emoções!</p>
+                `
                 document.getElementById("foto").src = pouBrabo
             }
             else if(pou.sono>99 || pou.sono<0){
-                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("hud").innerHTML = fuga + `
+                <p>O Pou não se adaptou ao seu ciclo de sono!</p>
+                `
                 document.getElementById("foto").src = pouBrabo
             }
             else if(pou.tedio>99 || pou.tedio<0){
-                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("hud").innerHTML = fuga + `
+                <p>Pou foi procurar algo diferente para fazer...</p>
+                `
                 document.getElementById("foto").src = pouBrabo
             }
             else if(pou.saude>99 || pou.saude<0){
-                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("hud").innerHTML = fuga + `
+                <p>Praticar esportes faz bem à saúde de Pou...</p>
+                `
                 document.getElementById("foto").src = pouBrabo
             }
 
@@ -163,6 +178,7 @@
             pou.estresse = 15
             pou.sono = 0
             pou.tedio = 50
+            pou.saude = 50
             document.getElementById('hud').innerHTML = `
             <ul id="hud">
             <li>Alimentação: <span id="hudAlimentacao"></span>/100<button onclick="alimentar()">Dar comida</button></li>
