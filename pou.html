@@ -10,7 +10,8 @@
             <li>Alimentação: <span id="hudAlimentacao"></span>/100<button onclick="alimentar()">Dar comida</button></li>
             <li>Higiene: <span id="hudHigiene"></span>/100<button onclick="banho()">Dar banho</button></li>
             <li>Estresse: <span id="hudEstresse"></span>/100<button onclick="musica()">Escutar música</button></li>
-            <li>Sono: <span id="hudSono"></span>/100<button onclick="dormir()">dormir</button></li>
+            <li>Sono: <span id="hudSono"></span>/100<button onclick="dormir()">Dormir</button></li>
+            <li>Tédio: <span id="hudTedio"></span>/100<button onclick="brincar()">Brincar</button></li>
         </ul>
 
         <img src="pounormal.jpg" alt="Seu Pou" id="foto">
@@ -20,6 +21,7 @@
             higiene: 75,
             estresse: 15,
             sono: 0,
+            tedio: 50,
         }
         refresh()
 
@@ -34,6 +36,7 @@
             pou.saciado += 15
             pou.higiene -= 20
             pou.estresse -= 5
+            pou.tedio -= 20
             refresh()
         }
 
@@ -48,6 +51,7 @@
             pou.estresse -= 50
             pou.higiene -= 5
             pou.saciado -= 5
+            pou.tedio -= 10
             refresh()
         }
 
@@ -56,6 +60,15 @@
             pou.estresse -= 5
             pou.higiene -= 10
             pou.saciado -= 15
+            pou.tedio += 15
+            refresh()
+        }
+
+        function brincar(){
+            pou.sono += 30
+            pou.higiene -= 30
+            pou.tedio = 0
+            pou.estresse -= 15
             refresh()
         }
 
@@ -85,6 +98,10 @@
                 document.getElementById("hud").innerHTML = fuga
                 document.getElementById("foto").src = pouBrabo
             }
+            else if(pou.tedio>99 || pou.tedio<0){
+                document.getElementById("hud").innerHTML = fuga
+                document.getElementById("foto").src = pouBrabo
+            }
         }
         setInterval(tempo, 2000)
 
@@ -93,17 +110,21 @@
             document.getElementById('hudHigiene').innerHTML = pou.higiene
             document.getElementById('hudEstresse').innerHTML = pou.estresse
             document.getElementById('hudSono').innerHTML = pou.sono
+            document.getElementById('hudTedio').innerHTML = pou.tedio
         }
         function recomecar(){
             pou.saciado = 75
             pou.higiene = 75
             pou.estresse = 15
+            pou.sono = 0
+            pou.tedio = 50
             document.getElementById('hud').innerHTML = `
             <ul id="hud">
             <li>Alimentação: <span id="hudAlimentacao"></span>/100<button onclick="alimentar()">Dar comida</button></li>
             <li>Higiene: <span id="hudHigiene"></span>/100<button onclick="banho()">Dar banho</button></li>
             <li>Estresse: <span id="hudEstresse"></span>/100<button onclick="musica()">Escutar música</button></li>
             <li>Sono: <span id="hudSono"></span>/100<button onclick="dormir()">dormir</button></li>
+            <li>Tédio: <span id="hudTedio"></span>/100<button onclick="brincar()">Brincar</button></li>
             </ul>
             `
             document.getElementById("foto").src = "pounormal.jpg"
